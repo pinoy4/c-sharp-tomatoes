@@ -34,6 +34,9 @@ namespace TomatoesAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            // Enable CORS
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+
             app.UseMvc();
         }
     }
