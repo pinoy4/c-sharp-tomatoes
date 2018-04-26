@@ -15,7 +15,7 @@ namespace TomatosAPI.Models
         [DataType(DataType.PostalCode)]
         public string OriginPostCode { get; set; }
 
-        public TasteRating Tastes { get; set; }
+        public TasteRating? Tastes { get; set; }
     }
 
     public enum TasteRating

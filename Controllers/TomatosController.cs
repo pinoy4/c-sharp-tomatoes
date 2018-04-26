@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TomatosAPI.Db;
 using TomatosAPI.Models;
@@ -80,10 +79,10 @@ namespace TomatosAPI.Controllers
                     tomato.OriginPostCode = posted.OriginPostCode;
                 }
 
-                /*if (posted.Tastes == 0)
+                if (posted.Tastes != null)
                 {
                     tomato.Tastes = posted.Tastes;
-                }*/
+                }
 
                 db.Tomatos.Update(tomato);
                 db.SaveChanges();
@@ -97,11 +96,13 @@ namespace TomatosAPI.Controllers
             using (TomatoDb db = new TomatoDb())
             {
                 var tomato = db.Tomatos.Find(id);
-                if (tomato != null) // Check if element exists
+                if (tomato == null)
                 {
-                    db.Tomatos.Remove(tomato);
-                    db.SaveChanges();
+                    return HttpNotFound(); // 404
                 }
+
+                db.Tomatos.Remove(tomato);
+                db.SaveChanges();
             }
         }
     }
